@@ -1,0 +1,67 @@
+@page "/consultaTickets"
+
+@inject HttpClient httpClient
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <head>
+                <h1>Consulta de Tickets</h1>
+            </head>
+        </div>
+
+        <div class="card-body">
+            <body>
+                <div class="row">
+                    <button type ="button" class="btn btn-outline-primary" @onclick="Buscar"><i class="oi oi-magnifying-glass"></i></button>
+                </div>
+                
+                @if (tickets is not null)
+        {
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>TicketId</th>
+                        <th>Fecha</th>
+                        <th>Solicitado Por</th>
+                        <th>Asunto</th>
+                        <th>Descripci&oacute;n</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ticket in tickets)
+                    {
+                        <tr>
+                            <td>@ticket.TicketId</td>
+                            <td>@ticket.Fecha.ToString("dd/MM/yyyy")</td>
+                            <td>@ticket.SolicitadoPor</td>
+                            <td>@ticket.Asunto</td>
+                            <td>@ticket.Descripcion</td>
+                            <td><a href="registroTickets/@ticket.TicketId">Ver</a></td> 
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        }
+
+            </body>
+        </div>
+    </div>
+</div>
+
+
+
+@code
+{
+    public List<Tickets> tickets {get; set;} = new List<Tickets>();
+    
+    public async Task Buscar()
+    {
+        tickets = await httpClient.GetFromJsonAsync<List<Tickets>>($"api/Tickets");
+
+        StateHasChanged(); 
+    }
+}
