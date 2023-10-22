@@ -1,0 +1,11 @@
+C:\APLICADA1\TicketsConDetalle\Shared\bin\Debug\net7.0\TicketsConDetalle.Shared.deps.json
+C:\APLICADA1\TicketsConDetalle\Shared\bin\Debug\net7.0\TicketsConDetalle.Shared.dll
+C:\APLICADA1\TicketsConDetalle\Shared\bin\Debug\net7.0\TicketsConDetalle.Shared.pdb
+C:\APLICADA1\TicketsConDetalle\Shared\obj\Debug\net7.0\TicketsConDetalle.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\APLICADA1\TicketsConDetalle\Shared\obj\Debug\net7.0\TicketsConDetalle.Shared.AssemblyInfoInputs.cache
+C:\APLICADA1\TicketsConDetalle\Shared\obj\Debug\net7.0\TicketsConDetalle.Shared.AssemblyInfo.cs
+C:\APLICADA1\TicketsConDetalle\Shared\obj\Debug\net7.0\TicketsConDetalle.Shared.csproj.CoreCompileInputs.cache
+C:\APLICADA1\TicketsConDetalle\Shared\obj\Debug\net7.0\TicketsConDetalle.Shared.dll
+C:\APLICADA1\TicketsConDetalle\Shared\obj\Debug\net7.0\refint\TicketsConDetalle.Shared.dll
+C:\APLICADA1\TicketsConDetalle\Shared\obj\Debug\net7.0\TicketsConDetalle.Shared.pdb
+C:\APLICADA1\TicketsConDetalle\Shared\obj\Debug\net7.0\ref\TicketsConDetalle.Shared.dll
