@@ -10,6 +10,8 @@
 
     <div class="container">
         <div class="card">
+
+            @*Header del Registro*@
             <div class ="card-header">
                 <head>
                     <h1>Registro de Tickets</h1>
@@ -18,6 +20,7 @@
 
             <div class="card-body">
                 <body>
+                    @*Id Ticket*@
                     <label>Id</label>
                     <div class="col-3">
                         <div class="input-group mb-3">
@@ -25,7 +28,7 @@
                             <button type ="button" @onclick="Buscar" id="BotonBuscarId" class="btn btn-outline-primary"><i class="oi oi-magnifying-glass"></i></button>
                         </div>
                     </div>
-
+                    @*Fecha Ticket*@
                     <div class="col-3">
                         <div class="mb-3">
                             <label>Fecha:</label>
@@ -33,7 +36,7 @@
                             <ValidationMessage For ="@(() => tickets.Fecha)"></ValidationMessage>
                         </div>
                     </div>
-                    
+                    @*Solicitado Por*@
                     <div class="col-5">
                         <div class="mb-3">
                             <label>Solicitado Por:</label>
@@ -43,6 +46,7 @@
                     </div>
 
                     <div class="row">
+                        @*Asunto*@
                         <div class="col-5">
                             <div class="mb-4">
                                 <label>Asunto:</label>
@@ -50,38 +54,38 @@
                                 <ValidationMessage For ="@(() => tickets.Asunto)"></ValidationMessage>
                             </div>
                         </div>
-
-                            <div class="col-5">
-                                <div class="mb-4">
-                                    <label>Descripci&oacute;n</label>
-                                    <InputTextArea class="form-control" @bind-Value="tickets.Descripcion" aria-describedby="DescripcionTicket"></InputTextArea>
-                                    <ValidationMessage For="@(() => tickets.Descripcion)"></ValidationMessage>
-                                </div>
+                        @*Descripcion*@
+                        <div class="col-5">
+                            <div class="mb-4">
+                                <label>Descripci&oacute;n</label>
+                                <InputTextArea class="form-control" @bind-Value="tickets.Descripcion" aria-describedby="DescripcionTicket"></InputTextArea>
+                                <ValidationMessage For="@(() => tickets.Descripcion)"></ValidationMessage>
                             </div>
+                        </div>
                     </div>
 
 
 
 
-                    @*DETALLE*@
+                    @*DETALLE Ticket*@
                     <fieldset class="border-success border border-1">
                         <h3>Mensajes</h3>
                         <div>
 
-                            @*Nombre *@
+                            @*Nombre*@
                             <div class="col-5">
                                 <label>Nombre:</label>
                                 <InputText class="form-control" @bind-Value="Nombre"></InputText>
                             </div>
 
-                            @*Mensaje *@
+                            @*Mensaje*@
                             <div class="row">
                                 <div class="col-5">
                                     <label>Mensaje</label>
                                     <InputTextArea class="form-control" @bind-Value="MensajeTicket"></InputTextArea>
                                 </div>
 
-                                @*Boton Agregar *@
+                                @*Boton Agregar*@
                                 <div class="col-5">
                                 <br>
                                     <button type="button" class="btn btn-primary input-group-text" @onclick="AgregarDetalle">
@@ -90,6 +94,7 @@
                                 </div>
 
                             </div>
+                            @*Verificar si la Validacion del detalle hay texto, si es asi, hay un error*@
                             @if (ValidacionD.Length > 0)
                             {
                                 <label class="text-danger">@ValidacionD</label>
@@ -117,7 +122,7 @@
                                 </tbody>
                             </table>
 
-                            
+                            @*Conteo de la cantidad de mensajes*@
                             <div class="row justify-content-between">
                                 <div class="col-4">
                                     <label>Cantidad de Mensajes</label>
@@ -130,7 +135,7 @@
                             <hr /> 
                     </fieldset>
 
-
+                    @*Conjunto de botones*@
                     <div class ="d-flex justify-content-center">
                         <div class="btn-group">
                             <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><i class="oi oi-file">Nuevo</i></button>
@@ -273,12 +278,25 @@
     {
         Nombre = detalleRemover.Emisor;
         MensajeTicket = detalleRemover.Mensaje;
-
+        
         tickets.TicketsDetalle.Remove(detalleRemover);
     }
 
     public async Task Eliminar()
     {
+
+        if(ValidarCasillasVacias())
+        {
+            Mensaje = new NotificationMessage 
+            {
+                Severity = NotificationSeverity.Info,
+                Summary = "Casillas Vacias",
+                Detail = "No se puede eliminar, debido a que no nada que eliminar de la base de datos",
+                Duration = 4_000
+            };
+        notificationService.Notify(Mensaje);
+        return;
+        }
         using var response = await httpClient.DeleteAsync($"api/Tickets/{tickets.TicketId}");
 
         if(!response.IsSuccessStatusCode)
@@ -319,6 +337,13 @@
     {
         return string.IsNullOrEmpty(tickets.SolicitadoPor) ||
                 string.IsNullOrEmpty(tickets.Asunto) ||
+                string.IsNullOrEmpty(tickets.Descripcion);
+    }
+
+    public bool ValidarCasillasVaciasEliminar()
+    {
+        return string.IsNullOrEmpty(tickets.SolicitadoPor) &&
+                string.IsNullOrEmpty(tickets.Asunto) &&
                 string.IsNullOrEmpty(tickets.Descripcion);
     }
 
