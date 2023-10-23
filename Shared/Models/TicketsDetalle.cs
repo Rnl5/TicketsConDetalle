@@ -12,7 +12,7 @@ public class TicketsDetalle
 
     [Required(ErrorMessage ="El campo Nombre es obligatorio")]
     [StringLength(35, ErrorMessage ="El Emisor es demasiado largo. Excede los {0} caracteres")]
-    [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage ="El campo Emisor solo debe de contener caracteres alfabeticos")]
+    [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage ="El campo Emisor solo debe de contener caracteres alfabeticos")]
     public string Emisor {get; set;} = string.Empty;
 
     [Required(ErrorMessage ="El campo Mensaje es obligatorio")]
