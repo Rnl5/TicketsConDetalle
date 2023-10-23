@@ -56,6 +56,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.10, )"
+            },
+            "Radzen.Blazor": {
+              "target": "Package",
+              "version": "[4.18.1, )"
             }
           },
           "imports": [
@@ -153,6 +157,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[7.0.9, )"
+            },
+            "Radzen.Blazor": {
+              "target": "Package",
+              "version": "[4.18.1, )"
             }
           },
           "imports": [

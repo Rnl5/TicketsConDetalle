@@ -11,7 +11,7 @@ using TicketsConDetalle.Server.DAL;
 namespace TicketsConDetalle.Server.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20231022031225_Inicial")]
+    [Migration("20231022161839_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />

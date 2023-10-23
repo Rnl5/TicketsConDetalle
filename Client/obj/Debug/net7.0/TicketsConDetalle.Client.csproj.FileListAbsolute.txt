@@ -834,3 +834,11 @@ C:\APLICADA1\TicketsConDetalle\Client\obj\Debug\net7.0\TicketsConDetalle.Client.
 C:\APLICADA1\TicketsConDetalle\Client\obj\Debug\net7.0\refint\TicketsConDetalle.Client.dll
 C:\APLICADA1\TicketsConDetalle\Client\obj\Debug\net7.0\TicketsConDetalle.Client.pdb
 C:\APLICADA1\TicketsConDetalle\Client\obj\Debug\net7.0\ref\TicketsConDetalle.Client.dll
+C:\APLICADA1\TicketsConDetalle\Client\bin\Debug\net7.0\wwwroot\_framework\Radzen.Blazor.dll
+C:\APLICADA1\TicketsConDetalle\Client\bin\Debug\net7.0\wwwroot\_framework\System.Linq.Dynamic.Core.dll
+C:\APLICADA1\TicketsConDetalle\Client\bin\Debug\net7.0\wwwroot\_framework\Radzen.Blazor.dll.gz
+C:\APLICADA1\TicketsConDetalle\Client\bin\Debug\net7.0\wwwroot\_framework\System.Linq.Dynamic.Core.dll.gz
+C:\APLICADA1\TicketsConDetalle\Client\bin\Debug\net7.0\Radzen.Blazor.dll
+C:\APLICADA1\TicketsConDetalle\Client\bin\Debug\net7.0\System.Linq.Dynamic.Core.dll
+C:\APLICADA1\TicketsConDetalle\Client\obj\Debug\net7.0\build-gz\0iatJFWm.gz
+C:\APLICADA1\TicketsConDetalle\Client\obj\Debug\net7.0\build-gz\mQO3dt42.gz
