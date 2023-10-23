@@ -40,7 +40,10 @@ namespace TicketsConDetalle.Server.Controllers
           {
               return NotFound();
           }
-            var tickets = await _context.Tickets.FindAsync(id);
+            var tickets = await _context.Tickets
+                        .Include(t => t.TicketsDetalle)
+                        .Where(t => t.TicketId == id)
+                        .FirstOrDefaultAsync();
 
             if (tickets == null)
             {
@@ -86,14 +89,18 @@ namespace TicketsConDetalle.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Tickets>> PostTickets(Tickets tickets)
         {
-          if (_context.Tickets == null)
-          {
-              return Problem("Entity set 'Context.Tickets'  is null.");
-          }
-            _context.Tickets.Add(tickets);
+            if(!TicketsExists(tickets.TicketId))
+            {
+                _context.Tickets.Add(tickets);
+            }
+            else
+            {
+                _context.Tickets.Update(tickets);
+            }
+
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTickets", new { id = tickets.TicketId }, tickets);
+            return Ok(tickets);
         }
 
         // DELETE: api/Tickets/5
