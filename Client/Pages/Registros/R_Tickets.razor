@@ -1,6 +1,8 @@
 @page "/registroTickets"
 @page "/registroTickets/{TicketId:int}"
 
+@inject NotificationService notificationService
+
 @inject HttpClient httpClient
 
 <EditForm model ="Tickets" OnValidSubmit="Guardar">
@@ -39,6 +41,7 @@
                             <ValidationMessage For ="@(() => tickets.SolicitadoPor)"></ValidationMessage>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-5">
                             <div class="mb-4">
@@ -64,6 +67,7 @@
                     <fieldset class="border-success border border-1">
                         <h3>Mensajes</h3>
                         <div>
+
                             @*Nombre *@
                             <div class="col-5">
                                 <label>Nombre:</label>
@@ -77,6 +81,7 @@
                                     <InputTextArea class="form-control" @bind-Value="MensajeTicket"></InputTextArea>
                                 </div>
 
+                                @*Boton Agregar *@
                                 <div class="col-5">
                                 <br>
                                     <button type="button" class="btn btn-primary input-group-text" @onclick="AgregarDetalle">
@@ -104,13 +109,15 @@
                                     @foreach (var detalle in tickets.TicketsDetalle)
                                     {
                                         <tr>
-                                        <td>@detalle.Emisor</td>
+                                            <td>@detalle.Emisor</td>
                                             <td>@detalle.Mensaje</td>
-                                            <td> <button @onclick="@(() => RemoverDetalle(detalle))"><i class="oi oi-trash" /> Eliminar</button>   </td>
+                                            <td> <button class="btn btn-outline-primary" @onclick="@(() => RemoverDetalle(detalle))"><i class="oi oi-trash" />Remover</button></td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
+
+                            
                             <div class="row justify-content-between">
                                 <div class="col-4">
                                     <label>Cantidad de Mensajes</label>
@@ -124,11 +131,12 @@
                     </fieldset>
 
 
-
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><i class="oi oi-file">Nuevo</i></button>
-                        <button type="submit" class="btn btn-outline-success"><i class="oi oi-document">Guardar</i></button>
-                        <button type ="button" class="btn btn-outline-danger" @onclick="Eliminar"><i class="oi oi-trash">Eliminar</i></button>
+                    <div class ="d-flex justify-content-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-outline-primary" @onclick="Nuevo"><i class="oi oi-file">Nuevo</i></button>
+                            <button type="submit" class="btn btn-outline-success"><i class="oi oi-document">Guardar</i></button>
+                            <button type ="button" class="btn btn-outline-danger" @onclick="Eliminar"><i class="oi oi-trash">Eliminar</i></button>
+                        </div>
                     </div>
                 </body>
             </div>
@@ -151,6 +159,8 @@
 
     public string ValidacionD {get; set;} = string.Empty;
 
+    public NotificationMessage Mensaje {get; set;} = new NotificationMessage();
+
     protected override async Task OnInitializedAsync()
     {
         if(TicketId > 0)
@@ -171,7 +181,14 @@
         }
         else
         {
-            //Notificacion de que no se ha encontrado el ticket
+            Mensaje = new NotificationMessage 
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = "Error al encontrar el Tickets",
+                Detail = "No se han encontrado Tickets",
+                Duration = 4_000
+            };
+        notificationService.Notify(Mensaje);
         }
     }
 
@@ -182,6 +199,32 @@
 
     public async Task Guardar()
     {
+        if(Validar())
+        {
+            Mensaje = new NotificationMessage 
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = "Error al guardar",
+                Detail = "El ID o la Fecha son incorrectos",
+                Duration = 4_000
+            };
+        notificationService.Notify(Mensaje);
+        return;
+        }
+
+        if(ValidarCasillasVacias())
+        {
+            Mensaje = new NotificationMessage 
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = "Error al guardar",
+                Detail = "Una o varias de las casillas se encuentran vacias",
+                Duration = 4_000
+            };
+        notificationService.Notify(Mensaje);
+        return;
+        }
+
         using var response = await httpClient.PostAsJsonAsync("api/Tickets", tickets);
         
         if(!response.IsSuccessStatusCode)
@@ -196,7 +239,16 @@
             tickets = ticketDevuelto;
             StateHasChanged();
             Nuevo();
+            Mensaje = new NotificationMessage 
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Exito al guardar",
+                Detail = "Ha guardado el ticket correctamente",
+                Duration = 4_000
+            };
+        notificationService.Notify(Mensaje);
         }
+
     }
 
     public void AgregarDetalle()
@@ -236,6 +288,14 @@
         else
         {
             Nuevo();
+            Mensaje = new NotificationMessage 
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = "Exito al eliminar el ticket",
+                Detail = "No se han encontrado Tickets",
+                Duration = 4_000
+            };
+        notificationService.Notify(Mensaje);
         }
     }
 
@@ -253,6 +313,19 @@
         }
 
         return ValidacionD.Length == 0;
+    }
+
+    public bool ValidarCasillasVacias()
+    {
+        return string.IsNullOrEmpty(tickets.SolicitadoPor) ||
+                string.IsNullOrEmpty(tickets.Asunto) ||
+                string.IsNullOrEmpty(tickets.Descripcion);
+    }
+
+    public bool Validar()
+    {
+        return tickets.TicketId < 0 ||
+                tickets.Fecha > DateTime.Now;
     }
 
 }
