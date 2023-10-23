@@ -201,14 +201,14 @@
       "netstandard.dll": "sha256-qjqaAEP3hdLnU\/TnoCd8HaSa+0ruV1TpdaB2GUujGMw=",
       "System.Private.CoreLib.dll": "sha256-\/7uQ+eNo9u3H1mpgMko4D3tKZHeGRfsRjna0Dqsu62k=",
       "TicketsConDetalle.Shared.dll": "sha256-e0gFowkmMlocOKz4DaAw9tJCvZujnZGO7ErBZOAhf70=",
-      "TicketsConDetalle.Client.dll": "sha256-ICdsAjsm95HscKZyjUMgMJM4pJe3TeqigyS4DPoYDsg="
+      "TicketsConDetalle.Client.dll": "sha256-rXRlA\/CE\/jiaey\/qcjdp6UbueyICY6jq8bA1vaP\/5lM="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
       "TicketsConDetalle.Shared.pdb": "sha256-qAfWf6fWTRvUnkF24XcB73TPRlxqvGheRdp8rCs918Q=",
-      "TicketsConDetalle.Client.pdb": "sha256-zCsveAm4pJrqkaXmKelst+OMBV7pwoGTziQbHprzImU="
+      "TicketsConDetalle.Client.pdb": "sha256-TD5KXds+D6YMWhMIRRIUE\/3U9wM29uHG95dQ0eATxws="
     },
     "runtime": {
       "dotnet.7.0.10.eeywd9v74c.js": "sha256-qJB30QURoyH3y3WyayHu6nMFIx2XNOkXCez7tagGpvE=",
