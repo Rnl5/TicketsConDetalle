@@ -13,6 +13,7 @@ public class Tickets
 
     [Required(ErrorMessage ="El campo Solicitado Por es obligatorio")]
     [StringLength(35, ErrorMessage ="Ha insertado mas de {0} caracteres")]
+    [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage ="El campo SolicitadoPor solo debe de contener caracteres alfabeticos")]
     public string SolicitadoPor {get; set;} = string.Empty;
 
     [Required(ErrorMessage ="El campo Asunto es obligatorio")]
